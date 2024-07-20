@@ -8,7 +8,8 @@ Shell scripting allows you to automate repetitive tasks, manage system operation
 
 By the end of this guide, you will have a solid understanding of shell scripting and be able to create your own scripts to automate tasks efficiently. Let's get started and unlock the potential of shell scripting to boost your productivity in Unix-like systems.
 
-### Understanding Variables in Shell Scripting
+<details>
+ <summary> Understanding Variables in Shell Scripting</summary>
 
 #### What is a Variable?
 
@@ -187,9 +188,10 @@ echo "The process ID of the last background command is: $!"
 ```
 
 Variables in shell scripting are essential for writing dynamic and flexible scripts. They allow you to store and manipulate data, making it easier to handle user inputs, process data, and configure script behavior. Understanding how to define and use different types of variables, including local variables, environment variables, positional parameters, and special variables, is fundamental to effective shell scripting.
+</details>
 
-
-### Comparison Operators
+<details>
+<summary>Comparison Operators</summary>
 
  In bash scripting, comparison operators are used in conditional statements to compare values. Here is a list of common comparison operators along with examples of how to use them.
 
@@ -370,16 +372,286 @@ fi
 
 These comparison operators are commonly used in bash scripting to perform various checks and conditions. They are essential for writing robust and flexible scripts.
 
+</details>
 
+<details>
+  <summary>Control Flow in Shell Scripting</summary>
 
+  Control flow statements are used to execute specific blocks of code based on conditions or iterations. Here are the main control flow statements in shell scripting:
 
+  1. `if-else`
+  2. `for`
+  3. `while`
+  4. `until` (similar to `do-while` in other languages)
+  5. `case` (similar to `switch` in other languages)
 
+  <details>
+    <summary>if-else</summary>
 
+    The `if-else` statement allows you to execute a block of code if a condition is true and another block if the condition is false.
+
+    **Example 1: Check if a File Exists**
+    ```sh
+    #!/bin/bash
+
+    FILE="example.txt"
+
+    if [ -e "$FILE" ]; then
+        echo "The file $FILE exists."
+    else
+        echo "The file $FILE does not exist."
+    fi
+    ```
+
+    **Example 2: Compare Two Numbers**
+    ```sh
+    #!/bin/bash
+
+    NUM1=10
+    NUM2=20
+
+    if [ "$NUM1" -gt "$NUM2" ]; then
+        echo "$NUM1 is greater than $NUM2."
+    else
+        echo "$NUM1 is not greater than $NUM2."
+    fi
+    ```
+  </details>
+
+  <details>
+    <summary>for</summary>
+
+    The `for` loop is used to iterate over a list of items or a range of numbers.
+
+    **Example 1: Iterate Over a List of Strings**
+    ```sh
+    #!/bin/bash
+
+    for NAME in Alice Bob Charlie; do
+        echo "Hello, $NAME!"
+    done
+    ```
+
+    **Example 2: Iterate Over a Range of Numbers**
+    ```sh
+    #!/bin/bash
+
+    for i in {1..5}; do
+        echo "Iteration $i"
+    done
+    ```
+  </details>
+
+  <details>
+    <summary>while</summary>
+
+    The `while` loop is used to execute a block of code as long as a condition is true.
+
+    **Example: Monitor the Status of an EC2 Instance**
+    ```sh
+    #!/bin/bash
+
+    INSTANCE_ID="i-0abcd1234efgh5678"
+    STATUS=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].State.Name" --output text)
+
+    while [ "$STATUS" != "running" ]; do
+        echo "Instance status: $STATUS"
+        sleep 10
+        STATUS=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].State.Name" --output text)
+    done
+
+    echo "Instance is now running."
+    ```
+  </details>
+
+  <details>
+    <summary>until</summary>
+
+    The `until` loop is similar to the `while` loop but it executes as long as the condition is false (essentially the inverse of `while`).
+
+    **Example: Wait Until a Condition is Met**
+    ```sh
+    #!/bin/bash
+
+    COUNT=1
+
+    until [ "$COUNT" -gt 5 ]; do
+        echo "Count is $COUNT"
+        COUNT=$((COUNT + 1))
+    done
+    ```
+
+    **Note**: In many scenarios, `until` can be used similarly to a `do-while` loop in other languages.
+  </details>
+
+  <details>
+    <summary>case</summary>
+
+    The `case` statement allows you to execute different blocks of code based on the value of a variable.
+
+    **Example: Check a Variable's Value**
+    ```sh
+    #!/bin/bash
+
+    OPTION="B"
+
+    case $OPTION in
+        "A")
+            echo "Option A selected."
+            ;;
+        "B")
+            echo "Option B selected."
+            ;;
+        "C")
+            echo "Option C selected."
+            ;;
+        *)
+            echo "Invalid option."
+            ;;
+    esac
+    ```
+  </details>
+
+  ### Practical Examples Using Control Flow
+
+  **Example: Backup Files to S3 Using a `for` Loop**
+  ```sh
+  #!/bin/bash
+
+  DIRECTORY="/path/to/directory"
+  BUCKET_NAME="my-backup-bucket"
+
+  if [ -d "$DIRECTORY" ]; then
+      for FILE in $DIRECTORY/*; do
+          aws s3 cp "$FILE" s3://$BUCKET_NAME/
+          echo "Uploaded $FILE to $BUCKET_NAME"
+      done
+  else
+      echo "Directory $DIRECTORY does not exist."
+  fi
+  ```
+
+  **Example: Start Multiple EC2 Instances Using a `for` Loop**
+  ```sh
+  #!/bin/bash
+
+  INSTANCE_IDS=("i-0abcd1234efgh5678" "i-1abcd1234efgh5678")
+
+  for INSTANCE_ID in "${INSTANCE_IDS[@]}"; do
+      aws ec2 start-instances --instance-ids $INSTANCE_ID
+      echo "Starting instance $INSTANCE_ID"
+  done
+  ```
+
+  **Example: Create and Terminate EC2 Instances Using `while` Loop**
+  ```sh
+  #!/bin/bash
+
+  AMI_ID="ami-0abcdef1234567890"
+  INSTANCE_TYPE="t2.micro"
+  KEY_NAME="my-key-pair"
+  INSTANCE_ID=$(aws ec2 run-instances --image-id $AMI_ID --instance-type $INSTANCE_TYPE --key-name $KEY_NAME --query "Instances[0].InstanceId" --output text)
+
+  echo "Launched instance $INSTANCE_ID. Waiting for 60 seconds..."
+  sleep 60
+
+  aws ec2 terminate-instances --instance-ids $INSTANCE_ID
+  echo "Terminated instance $INSTANCE_ID."
+  ```
+
+  **Example: Monitor S3 Bucket Size Using `until` Loop**
+  ```sh
+  #!/bin/bash
+
+  BUCKET_NAME="my-bucket"
+  THRESHOLD=1000000000 # 1GB in bytes
+
+  until [ $(aws s3api list-objects --bucket $BUCKET_NAME --query "sum(Contents[].Size)" --output text) -gt $THRESHOLD ]; do
+      echo "Bucket size is below threshold. Checking again in 10 seconds..."
+      sleep 10
+  done
+
+  echo "Bucket size exceeds threshold."
+  ```
+
+  **Example: Enable Versioning on S3 Buckets Using `case` Statement**
+  ```sh
+  #!/bin/bash
+
+  BUCKET_NAME="my-bucket"
+  VERSIONING_STATUS=$(aws s3api get-bucket-versioning --bucket $BUCKET_NAME --query "Status" --output text)
+
+  case $VERSIONING_STATUS in
+      "Enabled")
+          echo "Versioning is already enabled on $BUCKET_NAME."
+          ;;
+      "Suspended")
+          echo "Versioning is suspended on $BUCKET_NAME. Enabling versioning..."
+          aws s3api put-bucket-versioning --bucket $BUCKET_NAME --versioning-configuration Status=Enabled
+          ;;
+      *)
+          echo "Versioning is not enabled on $BUCKET_NAME. Enabling versioning..."
+          aws s3api put-bucket-versioning --bucket $BUCKET_NAME --versioning-configuration Status=Enabled
+          ;;
+  esac
+  ```
+
+  ### Additional Useful AWS CLI Commands for Practice
+
+  1. **Create an S3 Bucket and Upload a File**
+      ```sh
+      #!/bin/bash
+
+      BUCKET_NAME="my-new-bucket"
+      FILE_TO_UPLOAD="myfile.txt"
+
+      aws s3 mb s3://$BUCKET_NAME
+      aws s3 cp $FILE_TO_UPLOAD s3://$BUCKET_NAME/
+      echo "File $FILE_TO_UPLOAD uploaded to bucket $BUCKET_NAME."
+      ```
+
+  2. **Describe EC2 Instances in a Specific Region**
+      ```sh
+      #!/bin/bash
+
+      REGION=$1
+
+      if [ -z "$REGION" ]; then
+          echo "Please specify a region."
+          exit 1
+      fi
+
+      aws ec2 describe-instances --region $REGION
+      ```
+
+  3. **Monitor S3 Bucket Size**
+      ```sh
+      #!/bin/bash
+
+      BUCKET_NAME="my-bucket"
+      THRESHOLD=1000000000 # 1GB in bytes
+
+      BUCKET_SIZE=$(aws s3api list-objects --bucket $BUCKET_NAME --query "sum(Contents[].Size)" --output text)
+
+      if [ "$BUCKET_SIZE" -gt "$THRESHOLD" ]; then
+          echo "Warning: Bucket size exceeds threshold. Current size: $BUCKET_SIZE bytes."
+      else
+          echo
+
+ "Bucket size is within limits. Current size: $BUCKET_SIZE bytes."
+      fi
+      ```
+
+  ### Summary
+
+  This section covers various control flow statements in shell scripting, including `if-else`, `for`, `while`, `until`, and `case`. Each control flow structure is explained with practical examples, making it easier to understand and apply in real-world scenarios. By mastering these control flow statements, you will be able to write more robust and flexible shell scripts to automate tasks and manage system operations efficiently.
+</details>
 
 
 ##  Random Common Issues
 
-### 1. Why I can't execute the command with `./scriptname.sh` format?
+ <details> 
+    <summary>1. Why I can't execute the command with `./scriptname.sh` format?</summary>
  
 If you can't execute a script using the `./scriptname.sh` format but can execute it using the `sh scriptname.sh` format, it is likely due to one or more of the following reasons:
 
@@ -463,4 +735,5 @@ Hello, World!
 - Verify the shebang line is correct: `#!/bin/bash` at the top of the script.
 - Use the correct path to execute the script: `./scriptname.sh`.
 
-By following these steps, you should be able to execute your script using the `./scriptname.sh` format. If you have any further questions or encounter additional issues, feel free to ask!
+</details> 
+
