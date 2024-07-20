@@ -9,9 +9,9 @@
 5. Class 5: Route 53 + ACM
 6. Class 6: SES, SNS, CloudWatch
 7. Class 7: API 101
-8. Class 8: DynamoDB
-9. Class 9: Lambda
-10. Class 10: API Gateway + Cloud9 + CloudShell
+8. Class 8: API 101 + API Gateway + Lambda
+9. Class 9: Cognito + API Gateway 
+10. Class 10: Code Pipeline 101
 11. Class 11: Linux 101
 12. Class 12: Linux 102
 13. Class 13: Linux 103
@@ -37,7 +37,7 @@
 33. Class 33: AWS Certificate Prep and Guidelines
 34. Class 34: SQL 101
 35. Class 35: SQL 102
-36. Class 36: Kinesis + Cognito + Route 53
+36. Class 36: Kinesis
 37. Class 37: AWS DMS
 38. Class 38: RDS
 39. Class 39: HA and DR

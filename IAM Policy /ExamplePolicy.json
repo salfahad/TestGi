@@ -1,0 +1,34 @@
+{
+  "Statement":[
+    {
+    "Effect":"Allow",
+    "Action":"action",
+    "Resource":"arn",
+    "Condition":{
+      "condition":{
+        "key":"value"
+      }
+    }
+   },
+    {
+      "Effect":"effect",
+      "Action":"action",
+      "Resource":"arn",
+      "Condition":{
+        "condition":{
+          "key":"value"
+        }
+      }
+    },
+    {
+      "Effect":"effect",
+      "Action":"action",
+      "Resource":"arn",
+      "Condition":{
+        "condition":{
+          "key":"value"
+        }
+      }
+    }
+  ]
+}

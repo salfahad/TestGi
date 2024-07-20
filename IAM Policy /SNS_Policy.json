@@ -1,0 +1,32 @@
+{
+  "Version": "2012-10-17",
+  "Id": "example-ID",
+  "Statement": [
+    {
+      "Sid": "Example SNS topic policy",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": [
+        "SNS:Publish",
+        "SNS:RemovePermission",
+        "SNS:SetTopicAttributes",
+        "SNS:DeleteTopic",
+        "SNS:ListSubscriptionsByTopic",
+        "SNS:GetTopicAttributes",
+        "SNS:AddPermission",
+        "SNS:Subscribe"
+      ],
+      "Resource": "arn:aws:sns:us-east-1:666680140343:CD2401-Test",
+      "Condition": {
+        "StringEquals": {
+          "aws:SourceAccount": "666680140343"
+        },
+        "ArnLike": {
+          "aws:SourceArn": "arn:aws:s3:*:*:cd2401"
+        }
+      }
+    }
+  ]
+}

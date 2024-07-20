@@ -1,0 +1,13 @@
+{
+  "employee": {
+    "id": 1,
+    "name": "Admin",
+    "location": "USA"
+  },
+  "department": "Marketing",
+  "education" : [
+    "MSc",
+    "Bachelor",
+    "PhD"
+  ]
+}
