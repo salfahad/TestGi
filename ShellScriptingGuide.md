@@ -523,7 +523,7 @@ These comparison operators are commonly used in bash scripting to perform variou
 
   if [ -d "$DIRECTORY" ]; then
       for FILE in $DIRECTORY/*; do
-          aws s3 cp "$FILE" s3://$BUCKET_NAME/
+          aws s3 cp "$FILE" s3://$BUCKET_NAME/ --recursive
           echo "Uploaded $FILE to $BUCKET_NAME"
       done
   else
