@@ -22,7 +22,7 @@ For those unfamiliar with these concepts, the lab should provide enough context 
 ## NEXT 
 
 
-### Starting the lab
+## Starting the lab
 
 This lab is self-paced. You can run it in your own account or at an AWS event.
 
@@ -63,7 +63,7 @@ To save time on the initial setup you will deploy a CloudFormation template to c
 
 ## NEXT 
 
-### Working Environment
+## Working Environment
 
 Log in to the AWS Cloud9 IDE
 
@@ -219,7 +219,7 @@ Note that Predictive scaling forecast shows no data as it requires 24 hours of m
 Want to know more?
 Read more about predictive scaling in the [New – Predictive Scaling for EC2, Powered by Machine Learning ](https://aws.amazon.com/blogs/aws/new-predictive-scaling-for-ec2-powered-by-machine-learning/) blog post.
 
-### NEXT
+## NEXT
 
 ## Working with Custom Metrics
 
@@ -245,7 +245,7 @@ Verify scaling and load metrics data in CloudWatch.
 ![Image](https://github.com/user-attachments/assets/a01bd3a1-ab88-4466-9482-f927aa6066ec)
 
 
-### NEXT
+## NEXT
 
 
 ## Create a Policy
@@ -284,7 +284,7 @@ If successful, the command should return the created policy ARN.
 ```
 
 
-### NEXT 
+## NEXT 
 
 
 ## Review the Outcome
@@ -384,6 +384,8 @@ Congratulations, you now have your Auto Scaling group configured with both:
 
 
 ## NEXT 
+
+
 ## Instance Lifecycles
 
 You have successfully configured scaling policies in your Auto Scaling Group. You still need to solve the challenge of instances taking a long time, as much as 5-10 minutes, to start up.
@@ -515,7 +517,7 @@ Now let’s check the warm pool in the AWS Console
 ![Image](https://github.com/user-attachments/assets/ca4491aa-d137-40be-a747-2e282daada42)
 
 
-### NEXT
+## NEXT 
 
 ##  How Warm Pools Work
 You can also use the AWS CLI to observe changes in the warm pool at any state of the instances lifecycle. Run this command to list all instances with their state in the warm pool now.
@@ -559,7 +561,7 @@ As you can see from the following results, launching an instance into a warm poo
 
 `Launching a new EC2 instance into warm pool: i-0ea10fdc59a07df6e Duration: 260s`
 
-### NEXT
+## NEXT
 
 ## Launch from Warm Pool
 Now that you have pre-initialized instances in the warm pool, you can scale your Auto Scaling group and launch a pre-initialized instance rather than launching a new instance that has not been pre-initialized.
