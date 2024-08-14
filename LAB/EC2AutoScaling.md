@@ -51,8 +51,7 @@ Thank you for taking the time to explore Predictive Scaling and Warm Pools on yo
 ## Deploy the CloudFormation stack to build the lab
 To save time on the initial setup you will deploy a CloudFormation template to create various supporting resources including IAM policies and roles, EC2 Launch Template, VPC, Subnets and a Cloud9 IDE environment in which you can execute the steps of the lab
 
-- You can view and [download the CloudFormation template]()). Take a moment to review the CloudFormation template so you understand the resources it will be creating.
-> Tip: Right click the link and 'Save Link As', to download the file
+- You can view and [download the CloudFormation template]()). Take a moment to review the CloudFormation template so you understand the resources it will be creating. 
 - Browse to the [AWS CloudFormation ](https://console.aws.amazon.com/cloudformation) console and click 'Create stack', then 'With new resources(standard)'.
 - In the 'Specify template' section, select 'Upload a template file'. Click 'Choose file' and select the template you downloaded in step 1 and click 'Next'.
 - In the 'Specify stack details' section, enter a Stack name and click 'Next'. (Tip: The stack name cannot contain spaces, use myEC2lab for example.)
@@ -667,3 +666,6 @@ Check the resources on next page to learn more about the topics we discussed..
 - [Using EC2 Auto Scaling predictive scaling policies with Blue/Green deployments ](https://aws.amazon.com/blogs/compute/retaining-metrics-across-blue-green-deployment-for-predictive-scaling/)
 - [Introducing Native Support for Predictive Scaling with Amazon EC2 Auto Scaling ](https://aws.amazon.com/blogs/compute/introducing-native-support-for-predictive-scaling-with-amazon-ec2-auto-scaling/)
 - [Scaling your applications faster with EC2 Auto Scaling Warm Pools ](https://aws.amazon.com/blogs/compute/scaling-your-applications-faster-with-ec2-auto-scaling-warm-pools/) 
+
+
+ 
