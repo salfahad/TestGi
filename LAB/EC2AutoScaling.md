@@ -51,7 +51,8 @@ Thank you for taking the time to explore Predictive Scaling and Warm Pools on yo
 ## Deploy the CloudFormation stack to build the lab
 To save time on the initial setup you will deploy a CloudFormation template to create various supporting resources including IAM policies and roles, EC2 Launch Template, VPC, Subnets and a Cloud9 IDE environment in which you can execute the steps of the lab
 
-- You can view and [download the CloudFormation template]()). Take a moment to review the CloudFormation template so you understand the resources it will be creating. 
+- You can view and [download the CloudFormation template](https://github.com/IzaanSchool/B2401_CloudComputing_DevOps_Resources/blob/master/LAB/ec2-auto-scaling-quickstart-cnf.yaml)). Take a moment to review the CloudFormation template so you understand the resources it will be creating. 
+- Download the file
 - Browse to the [AWS CloudFormation ](https://console.aws.amazon.com/cloudformation) console and click 'Create stack', then 'With new resources(standard)'.
 - In the 'Specify template' section, select 'Upload a template file'. Click 'Choose file' and select the template you downloaded in step 1 and click 'Next'.
 - In the 'Specify stack details' section, enter a Stack name and click 'Next'. (Tip: The stack name cannot contain spaces, use myEC2lab for example.)
