@@ -30,9 +30,6 @@ Instructions will primarily be given using the [AWS Command Line Interface (CLI)
 
 While the lab provides step-by-step instructions, when convenient, please take a moment to look around and understand what is happening at each step. The lab is meant as a guide to get you started, but you will learn the most by digesting each of the steps and thinking about how they would apply in your own environment. You might even consider experimenting with the steps to challenge yourself.
 
-> At an AWS Event?
-> If you are at an AWS Event, please [skip to the next page] 
-
 ### Running the lab self-paced, in your own AWS account 
 
 Thank you for taking the time to explore Predictive Scaling and Warm Pools on your own time. The instructions below will get your account into a ready state to run this lab without the need to attend an AWS-hosted event.
@@ -772,7 +769,7 @@ aws cloudformation wait stack-delete-complete --stack-name $stack_name
 
 ## Finished
 
-Congratulations on completing the lab…or at least giving it a good go! This is the lab’s permanent home, so feel free to revisit as often as you’d like. In typical Amazon fashion, we’ll be listening to your feedback and iterating to make it better. If you have feedback, we’re all ears!
+Congratulations on completing the lab…or at least giving it a good go! This is the lab’s permanent home, so feel free to revisit as often as you’d like. In typical Izaan School fashion, we’ll be listening to your feedback and iterating to make it better. If you have feedback, we’re all ears!
 
 This is what you have accomplished in this lab:
 
