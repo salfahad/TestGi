@@ -625,7 +625,9 @@ Since you have enabled detaild CloudWatch metrics collection for the Auto Scalin
 
 ## Cleanup
 
-Delete all manually created resources.
+Delete Two CloudFormation Stack. 
+First aws-cloud9-myEC2Workshop2-xxxxxxx stack 
+Later workshop myEC2Workshop
 
 ```
 aws autoscaling delete-auto-scaling-group --auto-scaling-group-name ec2-lab-asg --force-delete
