@@ -162,8 +162,8 @@ Thank you for taking the time to explore Predictive Scaling and Warm Pools on yo
    - Security Groups: Select the security group created in Step 5.
    - User Data: Enter the user data script provided in the template.
 
-### Step 9: Create Cloud9 Environment
-
+### Step 9: Create Cloud9 Environment - 
+**Note**: Skip this Step. You can do all the cloud9 works from your local machine if that has AWS CLI installed with correct permission. You can also use CloudShell to do all the Cloud9 related work. CLoud9 is no longer available for the new customer. [Read More](https://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/)
 1. **Create Cloud9 Environment**:
    - Go to the **Cloud9 Dashboard**.
    - Click on **Create Environment**.
