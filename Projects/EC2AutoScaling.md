@@ -44,150 +44,24 @@ Thank you for taking the time to explore Predictive Scaling and Warm Pools on yo
 > Be frugal
 > To avoid unwanted costs in your account, don’t forget to go through the **Cleanup** step when you finish the lab, or if you deploy the CloudFormation template but don’t complete the lab.
 
+#### Deploy the CloudFormation stack to build the lab
+To save time on the initial setup you will deploy a CloudFormation template to create various supporting resources including IAM policies and roles, EC2 Launch Template, VPC, Subnets and a Cloud9 IDE environment in which you can execute the steps of the workshop
 
-## 1.0 Build the initial infrastructure from scratch
+1. You can view and [download the CloudFormation template](https://raw.githubusercontent.com/awslabs/ec2-spot-workshops/master/content/efficient-and-resilient-ec2-auto-scaling/files/efficient-auto-scaling-quickstart-cnf.yml)  from GitHub. Take a moment to review the CloudFormation template so you understand the resources it will be creating.
 
-### Step 1: Create a VPC
+   > Tip: Right click the link and 'Save Link As', to download the file
+2. Browse to the [AWS CloudFormation  console](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks?filteringText=&filteringStatus=active&viewNested=true) and click 'Create stack', then 'With new resources(standard)'.
 
-1. **Navigate to the VPC Dashboard**:
-   - Go to the AWS Management Console.
-   - Search for and select **VPC**.
-   - Click on **Create VPC**.
+3. In the **Specify template** section, select 'Upload a template file'. Click 'Choose file' and select the template you downloaded in step 1 and click 'Next'.
 
-2. **Configure the VPC**:
-   - Name: Enter a name (e.g., `EC2Workshop-VPC`).
-   - IPv4 CIDR block: Enter `10.192.0.0/16`.
-   - Enable DNS hostnames: Yes.
-   - Enable DNS support: Yes.
-   - Click **Create VPC**.
+4. In the **Specify stack details** section, enter a Stack name and click 'Next'. (Tip: The stack name cannot contain spaces, use myEC2Workshop for example.)
 
-### Step 2: Create an Internet Gateway and Attach to VPC
+5. In **Configure stack options**, you don’t need to make any changes and click 'Next'.
 
-1. **Create Internet Gateway**:
-   - In the VPC Dashboard, select **Internet Gateways**.
-   - Click on **Create Internet Gateway**.
-   - Name: Enter a name (e.g., `EC2Workshop-IGW`).
-   - Click **Create Internet Gateway**.
+6. Review the information for the stack. At the bottom under 'Capabilities', select 'I acknowledge that AWS CloudFormation might create IAM resources'. When you’re satisfied with the settings, click 'Create' stack.
 
-2. **Attach Internet Gateway to VPC**:
-   - Select the created Internet Gateway.
-   - Click **Actions** > **Attach to VPC**.
-   - Select the VPC created in Step 1 and click **Attach Internet Gateway**.
+> The CloudFormation stack takes about 45 minutes for the environment setup and the bootstrap script to finish creating the CloudWatch metrics data.
 
-### Step 3: Create Public Subnets
-
-1. **Create Public Subnet 1**:
-   - In the VPC Dashboard, select **Subnets**.
-   - Click on **Create Subnet**.
-   - VPC: Select the VPC created in Step 1.
-   - Name: Enter a name (e.g., `EC2Workshop-PublicSubnet1`).
-   - Availability Zone: Choose an AZ (e.g., us-east-1a).
-   - IPv4 CIDR block: Enter `10.192.20.0/24`.
-   - Click **Create Subnet**.
-
-2. **Create Public Subnet 2**:
-   - Repeat the above steps for Public Subnet 2.
-   - Name: `EC2Workshop-PublicSubnet2`.
-   - Availability Zone: Choose a different AZ (e.g., us-east-1b).
-   - IPv4 CIDR block: Enter `10.192.21.0/24`.
-   - Click **Create Subnet**.
-
-### Step 4: Create a Route Table and Associate Subnets
-
-1. **Create Route Table**:
-   - In the VPC Dashboard, select **Route Tables**.
-   - Click on **Create Route Table**.
-   - Name: Enter a name (e.g., `EC2Workshop-RT`).
-   - VPC: Select your VPC.
-   - Click **Create Route Table**.
-
-2. **Create Route for Internet Access**:
-   - Select the Route Table created.
-   - Click on **Edit Routes** > **Add Route**.
-   - Destination: `0.0.0.0/0`.
-   - Target: Select your Internet Gateway.
-   - Click **Save Routes**.
-
-3. **Associate Route Table with Subnets**:
-   - Select the **Subnet Associations** tab.
-   - Click **Edit Subnet Associations**.
-   - Select both Public Subnet 1 and Public Subnet 2.
-   - Click **Save Associations**.
-
-### Step 5: Create a Security Group
-
-1. **Create Security Group**:
-   - In the VPC Dashboard, select **Security Groups**.
-   - Click on **Create Security Group**.
-   - Name: Enter `EC2Workshop-SG`.
-   - Description: Enter a description.
-   - VPC: Select your VPC.
-   - Click **Create Security Group**.
-
-2. **Add Inbound Rule**:
-   - Select the created Security Group.
-   - Click **Edit Inbound Rules**.
-   - Add a rule allowing HTTP access (Port 80, Source: Anywhere 0.0.0.0/0).
-   - Add another rule allowing SSH access (Port 22, Source: Anywhere 0.0.0.0/0).
-   - Click **Save Rules**.
-
-### Step 6: Create an EC2 Key Pair
-
-1. **Create Key Pair**:
-   - Go to the EC2 Dashboard.
-   - Select **Key Pairs**.
-   - Click **Create Key Pair**.
-   - Name: Enter `EC2WorkshopInstanceKeyPair`.
-   - Click **Create** and download the `.pem` file.
-
-### Step 7: Create IAM Roles and Policies
-
-1. **Create IAM Roles**:
-   - Navigate to **IAM Dashboard**.
-   - Select **Roles** > **Create Role**.
-   - Choose the EC2 service.
-   - Attach the `AdministratorAccess` policy.
-   - Name the role `EC2WorkshopRole`.
-   - Create another role with the same steps and attach the `AmazonSSMManagedInstanceCore` policy. Name this role `C9LambdaExecutionRole`.
-
-### Step 8: Create Launch Template
-
-1. **Create Launch Template**:
-   - Go to the EC2 Dashboard.
-   - Select **Launch Templates** > **Create Launch Template**.
-   - Name: Enter `EC2WorkshopLaunchTemplate`.
-   - AMI: Choose an Amazon Linux 2 AMI.
-   - Instance Type: Select `t3.micro`.
-   - Key Pair: Select the key pair created in Step 6.
-   - Security Groups: Select the security group created in Step 5.
-   - User Data: Enter the user data script provided in the template.
-
-### Step 9: Create Cloud9 Environment - 
-**Note**: Skip this Step. You can do all the cloud9 works from your local machine if that has AWS CLI installed with correct permission. You can also use CloudShell to do all the Cloud9 related work. CLoud9 is no longer available for the new customer. [Read More](https://aws.amazon.com/blogs/devops/how-to-migrate-from-aws-cloud9-to-aws-ide-toolkits-or-aws-cloudshell/)
-1. **Create Cloud9 Environment**:
-   - Go to the **Cloud9 Dashboard**.
-   - Click on **Create Environment**.
-   - Name: Enter a name (e.g., `EC2Workshop-Cloud9`).
-   - Environment Type: Select **Create a new instance for environment (EC2)**.
-   - Instance Type: Select `t3.large`.
-   - VPC: Select the VPC created in Step 1.
-   - Subnet: Select the Public Subnet 1 created in Step 3.
-   - Click **Create Environment**.
-
-### Step 10: Create S3 Bucket for Bootstrap Output
-
-1. **Create S3 Bucket**:
-   - Go to the **S3 Dashboard**.
-   - Click on **Create Bucket**.
-   - Name: Enter `EC2WorkshopBootstrapBucket`.
-   - Region: Select your preferred region.
-   - Click **Create Bucket**.
-
-### Final Step: Review and Test
-
-1. **Verify Resource Creation**:
-   - Go to each service (VPC, EC2, Cloud9, S3) and verify that all resources are created as expected.
-   - Ensure all resources are connected correctly and running.
 
 
 ## NEXT 
