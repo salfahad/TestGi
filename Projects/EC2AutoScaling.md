@@ -47,18 +47,15 @@ Thank you for taking the time to explore Predictive Scaling and Warm Pools on yo
 #### Deploy the CloudFormation stack to build the lab
 To save time on the initial setup you will deploy a CloudFormation template to create various supporting resources including IAM policies and roles, EC2 Launch Template, VPC, Subnets and a Cloud9 IDE environment in which you can execute the steps of the workshop
 
-1. You can view and [download the CloudFormation template](https://raw.githubusercontent.com/awslabs/ec2-spot-workshops/master/content/efficient-and-resilient-ec2-auto-scaling/files/efficient-auto-scaling-quickstart-cnf.yml)  from GitHub. Take a moment to review the CloudFormation template so you understand the resources it will be creating.
-
-   > Tip: Right click the link and 'Save Link As', to download the file
-2. Browse to the [AWS CloudFormation  console](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks?filteringText=&filteringStatus=active&viewNested=true) and click 'Create stack', then 'With new resources(standard)'.
-
-3. In the **Specify template** section, select 'Upload a template file'. Click 'Choose file' and select the template you downloaded in step 1 and click 'Next'.
-
-4. In the **Specify stack details** section, enter a Stack name and click 'Next'. (Tip: The stack name cannot contain spaces, use myEC2Workshop for example.)
-
-5. In **Configure stack options**, you don’t need to make any changes and click 'Next'.
-
-6. Review the information for the stack. At the bottom under 'Capabilities', select 'I acknowledge that AWS CloudFormation might create IAM resources'. When you’re satisfied with the settings, click 'Create' stack.
+1. You can view and [download the CloudFormation template](https://github.com/IzaanSchool/B2401_CloudComputing_DevOps_Resources/blob/master/Projects/ec2-auto-scaling-quickstart-cnf.yaml)  from GitHub. Take a moment to review the CloudFormation template so you understand the resources it will be creating.
+   > Tip: Click Raw and Copy
+2. Go to AWS Console > Open CloudShell
+3. Create autoscaling.yaml file with the downloaded content using nano or vi editor
+4. Execute this command where you have the CloudFormation file
+  ``aws cloudformation create-stack --stack-name EC2AutoScalingProject --template-body file://autoscaling.yaml --capabilities CAPABILITY_IAM``
+5. You shall see below if your CloudFormation Stack Creation was successful 
+  ``aws cloudformation create-stack --stack-name B2401-AutoScaling --template-body file://autoscaling.yaml --capabilities CAPABILITY_IAM``
+6. Browse to the [AWS CloudFormation  console](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks?filteringText=&filteringStatus=active&viewNested=true) and click 'Create stack', then 'With new resources(standard)'.
 
 > The CloudFormation stack takes about 45 minutes for the environment setup and the bootstrap script to finish creating the CloudWatch metrics data.
 
