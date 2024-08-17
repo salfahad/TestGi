@@ -57,6 +57,7 @@ To save time on the initial setup you will deploy a CloudFormation template to c
   ``aws cloudformation create-stack --stack-name B2401-AutoScaling --template-body file://autoscaling.yaml --capabilities CAPABILITY_IAM``
 6. Browse to the [AWS CloudFormation  console](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks?filteringText=&filteringStatus=active&viewNested=true) and click 'Create stack', then 'With new resources(standard)'.
 
+
 > The CloudFormation stack takes about 45 minutes for the environment setup and the bootstrap script to finish creating the CloudWatch metrics data.
 
 
