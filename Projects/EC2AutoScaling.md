@@ -84,7 +84,7 @@ If you are not at an AWS Event (or if you're just curious), you can follow the o
 - Click on the url of the AWS Cloud9 environment; it’s the value of Cloud9 IDE in the CloudFormation stack outputs.
 
 
-![Image](https://github.com/user-attachments/assets/77d91e7a-7f80-4050-9db3-04edb8df77e1)
+![Image](https://github.com/user-attachments/assets/f56da198-44df-4c76-ab23-69ee6ccf6eb7)
 
 
 **Inside the Cloud9 IDE** 
@@ -98,7 +98,7 @@ If you are not at an AWS Event (or if you're just curious), you can follow the o
 
 
 
-![Image](https://github.com/user-attachments/assets/b4b838c3-0dd1-4194-9511-654f23a06f7e)
+![Image](https://github.com/user-attachments/assets/c27519e1-d140-4473-87ac-b5606edaec2e)
 
 
 
@@ -215,7 +215,7 @@ No data to show
 Note that Predictive scaling forecast shows no data as it requires 24 hours of metric history before it can generate forecasts. Therefore in the next chapter you will use CloudWatch custom metrics to create a history of data that can be used for forecasting by predictive scaling policy.
 
 
-![Image](https://github.com/user-attachments/assets/47bb2f30-90eb-466c-8cef-adb35e9f55d7)
+![Image](https://github.com/user-attachments/assets/321e5c20-6aaa-4fc8-b5b0-3a8441ba14d7)
 
 Want to know more?
 Read more about predictive scaling in the [New – Predictive Scaling for EC2, Powered by Machine Learning ](https://aws.amazon.com/blogs/aws/new-predictive-scaling-for-ec2-powered-by-machine-learning/) blog post.
@@ -243,8 +243,7 @@ Verify scaling and load metrics data in CloudWatch.
 
 
 
-![Image](https://github.com/user-attachments/assets/a01bd3a1-ab88-4466-9482-f927aa6066ec)
-
+![Image](https://github.com/user-attachments/assets/f01b1a45-5666-418e-b296-08ada77483da)
 
 ## NEXT
 
@@ -296,14 +295,12 @@ If successful, the command should return the created policy ARN.
 - Click on the tab 'Automatic scaling'
 - A new policy has been created under 'Predictive scaling policies'
 
+![Image](https://github.com/user-attachments/assets/c7739246-f233-4a0e-ad52-0a189370eec3)
 
-![Image](https://github.com/user-attachments/assets/e9fa429c-51e4-43e3-a9f0-09e2caec87ac)
 
 At the head of next hour, predictive scaling is forecasting capacity of 5 instances
 
-
-
-![Image](https://github.com/user-attachments/assets/8dc0620c-7440-47c9-bb98-b25bf4f71741)
+![Image](https://github.com/user-attachments/assets/16ea9a54-92e4-4ea0-99f8-071c58a22dfe)
 
 ### How predictive scaling affects an Auto Scaling group's target capacity 
 Using the forecast from predictive scaling, Amazon EC2 Auto Scaling scales the number of instances at the beginning of each hour (or before, if configured). Here are the different behaviors you can encounter:
@@ -404,7 +401,7 @@ Amazon EC2 Auto Scaling offers the ability to add lifecycle hooks to your Auto S
 
 An Amazon EC2 instance transitions through different states from the time it launches until it is terminated. You can create lifecycle hooks to act when an instance transitions into a wait state.
 
-![Image](https://github.com/user-attachments/assets/b5d8b7f3-ae26-4f5e-9fac-e514599d4e10)
+![Image](https://github.com/user-attachments/assets/3e18e298-0041-4367-b57e-8cd4500a1e07)
 
 ### Create a Lifecycle hook for instance launching 
 
@@ -450,8 +447,7 @@ Watch the instance being launched in the AWS Console
 - Navigate to the Auto Scaling console, click on Auto Scaling group ec2-lab-asg
 - Click on the 'Instance management' tab
 
-![Image](https://github.com/user-attachments/assets/d95dcf86-c136-461c-945b-7b4aa3c80f10)
-
+![Image](https://github.com/user-attachments/assets/29abbe0f-fdbd-43f4-99a2-c0ada41bb9a3)
 
 ###  Measure launch speed 
 You need to wait a few minutes for the instance to be launched by the previous step. Then run this script to measure the launch speed of the instance.
@@ -496,7 +492,7 @@ By default, when ASG scales in, instances get terminated. In warm pools, however
 > On-Demand instances only
 > You cannot add a warm pool to Auto Scaling groups that use Spot Instances
 
-![Image](https://github.com/user-attachments/assets/b86b0890-7c36-4823-9c45-fcd341378610)
+![Image](https://github.com/user-attachments/assets/a5b31968-241b-47ac-96c5-890a76b86fb3)
 
 ###  Add a warm pool to your Auto Scaling group 
 
@@ -514,9 +510,7 @@ Now let’s check the warm pool in the AWS Console
 4. Once the instances are initialized, the lifecycle will be changed to Warmed:Stopped
 
 
-
-![Image](https://github.com/user-attachments/assets/ca4491aa-d137-40be-a747-2e282daada42)
-
+![Image](https://github.com/user-attachments/assets/be1e57eb-3359-49a3-a35f-c86743d7eb34)
 
 ## NEXT 
 
@@ -544,7 +538,7 @@ Since you configured instances in your warm pool to be stopped after initializat
 
 
 
-![Image](https://github.com/user-attachments/assets/25d5ff9c-7a1b-4df9-9caa-621fae765697)
+![Image](https://github.com/user-attachments/assets/53cfbe7c-e963-4082-b7cf-517eb49b92b9)
 
 
  ### Observe launch speed into warm pool 
@@ -609,12 +603,11 @@ Since you have enabled detaild CloudWatch metrics collection for the Auto Scalin
 
 
 **Before**
-![Image](https://github.com/user-attachments/assets/8790e38a-4c99-4e24-9a6d-84665935c9b0)
+![Image](https://github.com/user-attachments/assets/65a50ea7-a4ae-41fb-a6cd-9ed678d5c186)
 
 **After**
 
-
-![Image](https://github.com/user-attachments/assets/f54b8460-cc36-4abb-b232-d026df4e385f)
+![Image](https://github.com/user-attachments/assets/dacc1eae-c3e4-4f4c-8d82-aa6d904d9e94)
 
 
 
