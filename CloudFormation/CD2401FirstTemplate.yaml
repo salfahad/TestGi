@@ -1,0 +1,57 @@
+Resources:
+  CD2401SG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "This is a web application SG."
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0 # Allows SSH access from anywhere (modify as needed)
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0 # Allows HTTP access from anywhere
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0 # Allows HTTPS access from anywhere
+      Tags:
+        - Key: Name
+          Value: MyLaunchTemplateSecurityGroup
+#      VpcId: "vpc-0a6a19b4862a52b9f"
+#      GroupName: "CD2401Test02"
+#  MyLaunchTemplate:
+#    Type: AWS::EC2::LaunchTemplate
+#    Properties:
+#      LaunchTemplateName: MySampleLaunchTemplate
+#      LaunchTemplateData:
+#        ImageId: ami-066784287e358dad1 # Replace with your desired AMI ID
+#        InstanceType: t2.micro # Specify your desired instance type
+#        KeyName: CD2401testServerKeyPair # Replace with your existing key pair name
+#        SecurityGroupIds:
+#          - sg-0c56de4590b522554 # Reference the security group created above
+#        NetworkInterfaces:
+#          - DeviceIndex: 0
+#            SubnetId: subnet-33272c54 # Launch instance in Subnet 1
+#            AssociatePublicIpAddress: true
+#        UserData:
+#          Fn::Base64: !Sub |
+#            #!/bin/bash
+#            yum update -y
+#            yum install -y httpd
+#            systemctl start httpd
+#            systemctl enable httpd
+#            mkdir -p /var/www/html
+#            echo "<html><body><h1>Welcome to My Sample Web Page</h1></body></html>" > /var/www/html/index.html
+#        TagSpecifications:
+#          - ResourceType: instance
+#            Tags:
+#              - Key: Name
+#                Value: MyLaunchTemplateInstance
+
+
+# Do you want to validate?
+# aws cloudformation validate-template --template-body file://CD2401FirstTemplate.yaml
+# aws cloudformation create-stack --stack-name MyLaunchTemplateStack --template-body file://CD2401FirstTemplate.yaml --capabilities CAPABILITY_NAMED_IAM
+#  aws cloudformation update-stack --stack-name MyLaunchTemplateStack --template-body file://CD2401FirstTemplate.yaml --capabilities CAPABILITY_NAMED_IAM

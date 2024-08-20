@@ -1,0 +1,66 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template to create an EC2 Launch Template with a sample HTML file and Security Group
+
+Resources:
+  MySecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH, HTTP, and HTTPS access
+      VpcId: vpc-0123456789abcdef0 # Replace with your VPC ID
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0 # Allows SSH access from anywhere (modify as needed)
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0 # Allows HTTP access from anywhere
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0 # Allows HTTPS access from anywhere
+      Tags:
+        - Key: Name
+          Value: MyLaunchTemplateSecurityGroup
+
+  MyLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: MySampleLaunchTemplate
+      LaunchTemplateData:
+        ImageId: ami-0c55b159cbfafe1f0 # Replace with your desired AMI ID
+        InstanceType: t2.micro # Specify your desired instance type
+        KeyName: my-key-pair # Replace with your existing key pair name
+        SecurityGroupIds:
+          - !Ref MySecurityGroup # Reference the security group created above
+        UserData:
+          Fn::Base64: !Sub |
+            #!/bin/bash
+            yum update -y
+            yum install -y httpd
+            systemctl start httpd
+            systemctl enable httpd
+            mkdir -p /var/www/html
+            echo "<html><body><h1>Welcome to My Sample Web Page</h1></body></html>" > /var/www/html/index.html
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: MyLaunchTemplateInstance
+
+Outputs:
+  LaunchTemplateId:
+    Description: The ID of the created launch template
+    Value: !Ref MyLaunchTemplate
+    Export:
+      Name: LaunchTemplateId
+
+  SecurityGroupId:
+    Description: The ID of the created Security Group
+    Value: !Ref MySecurityGroup
+    Export:
+      Name: SecurityGroupId
+
+# aws cloudformation create-stack --stack-name MyLaunchTemplateStack --template-body file://launch-template-stack.yaml --capabilities CAPABILITY_NAMED_IAM
+# aws cloudformation describe-stacks --stack-name MyLaunchTemplateStack
