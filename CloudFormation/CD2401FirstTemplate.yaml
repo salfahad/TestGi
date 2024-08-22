@@ -1,5 +1,5 @@
 Resources:
-  CD2401SG:
+  CD2401SG02:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: "This is a web application SG."
@@ -19,36 +19,36 @@ Resources:
       Tags:
         - Key: Name
           Value: MyLaunchTemplateSecurityGroup
-#      VpcId: "vpc-0a6a19b4862a52b9f"
-#      GroupName: "CD2401Test02"
-#  MyLaunchTemplate:
-#    Type: AWS::EC2::LaunchTemplate
-#    Properties:
-#      LaunchTemplateName: MySampleLaunchTemplate
-#      LaunchTemplateData:
-#        ImageId: ami-066784287e358dad1 # Replace with your desired AMI ID
-#        InstanceType: t2.micro # Specify your desired instance type
-#        KeyName: CD2401testServerKeyPair # Replace with your existing key pair name
-#        SecurityGroupIds:
-#          - sg-0c56de4590b522554 # Reference the security group created above
-#        NetworkInterfaces:
-#          - DeviceIndex: 0
-#            SubnetId: subnet-33272c54 # Launch instance in Subnet 1
-#            AssociatePublicIpAddress: true
-#        UserData:
-#          Fn::Base64: !Sub |
-#            #!/bin/bash
-#            yum update -y
-#            yum install -y httpd
-#            systemctl start httpd
-#            systemctl enable httpd
-#            mkdir -p /var/www/html
-#            echo "<html><body><h1>Welcome to My Sample Web Page</h1></body></html>" > /var/www/html/index.html
-#        TagSpecifications:
-#          - ResourceType: instance
-#            Tags:
-#              - Key: Name
-#                Value: MyLaunchTemplateInstance
+      VpcId: "vpc-0a6a19b4862a52b9f"
+      GroupName: "CD2401Test02"
+  MyLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: MySampleLaunchTemplate
+      LaunchTemplateData:
+        ImageId: ami-066784287e358dad1 # Replace with your desired AMI ID
+        InstanceType: t2.micro # Specify your desired instance type
+        KeyName: CD2401testServerKeyPair # Replace with your existing key pair name
+        SecurityGroupIds:
+          - !Ref CD2401SG02  # Reference the security group created above
+        NetworkInterfaces:
+          - DeviceIndex: 0
+            SubnetId: subnet-33272c54 # Launch instance in Subnet 1
+            AssociatePublicIpAddress: true
+        UserData:  # During run time of the CloudFormation Value has to be base64 encoded value of user data. eg"IyEvYmluL2Jhc2gKICAgICAgICAgICAg". Fn::Base64: !Sub | -- converts and replaces the value with base 64 encoded data.
+          Fn::Base64: !Sub |
+            #!/bin/bash
+            yum update -y
+            yum install -y httpd
+            systemctl start httpd
+            systemctl enable httpd
+            mkdir -p /var/www/html
+            echo "<html><body><h1>Welcome to My Sample Web Page</h1></body></html>" > /var/www/html/index.html
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: MyLaunchTemplateInstance
 
 
 # Do you want to validate?

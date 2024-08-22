@@ -1,0 +1,10 @@
+[
+  {
+    "ParameterKey":"BucketNamePrefix",
+    "ParameterValue": "izaanschool-app-contents"
+  },
+  {
+    "ParameterKey":"EnvType",
+    "ParameterValue": "prod"
+  }
+]

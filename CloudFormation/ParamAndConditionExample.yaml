@@ -1,0 +1,35 @@
+
+Parameters:
+  BucketNamePrefix:
+    Type: String
+    Default: "web-app-contents"
+  EnvType:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - uat
+      - prod
+
+Conditions:
+  IsDev: !Equals [!Ref EnvType, "dev"]
+  IsUat: !Equals [!Ref EnvType, "uat"]
+  IsProd: !Equals [!Ref EnvType, "prod"]
+
+Resources:
+  MyDevBucket:
+    Type: AWS::S3::Bucket
+    Condition: IsDev
+    Properties:
+      BucketName: !Join [ '-dev-', [ !Ref BucketNamePrefix, !Ref AWS::AccountId ]]
+  MyProdBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    Condition: IsProd
+    Properties:
+      BucketName: !Join [ '-prod-', [ !Ref BucketNamePrefix, !Ref AWS::AccountId ] ]
+
+  # Do you want to validate?
+  # aws cloudformation validate-template --template-body file://CD2401FirstTemplate.yaml
+  # aws cloudformation create-stack --stack-name MyLaunchTemplateStack --template-body file://CD2401FirstTemplate.yaml --capabilities CAPABILITY_NAMED_IAM
+  #  aws cloudformation update-stack --stack-name MyLaunchTemplateStack --template-body file://CD2401FirstTemplate.yaml --capabilities CAPABILITY_NAMED_IAM
