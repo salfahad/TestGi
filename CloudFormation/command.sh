@@ -11,11 +11,10 @@ aws cloudformation create-stack\
 
 
 aws cloudformation create-stack\
-    --stack-name ParamAndConditionExample\
-    --template-body file://ParamAndConditionExample.yaml\
+    --stack-name CustomResource4\
+    --template-body file://CustomResource.yaml\
     --capabilities CAPABILITY_NAMED_IAM
 
 aws cloudformation update-stack\
-    --stack-name ParamAndConditionExample1\
-    --parameters file://param.json\
-    --template-body file://ParamAndConditionExample.yaml --capabilities CAPABILITY_NAMED_IAM
+    --stack-name CustomResource2\
+    --template-body file://CustomResource.yaml --capabilities CAPABILITY_NAMED_IAM
